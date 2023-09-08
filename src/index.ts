@@ -5,11 +5,11 @@ import runMapTask from './mapsTask.js';
 import save from './lib/saveToFile.js';
 import runProspectWebsiteTask from './prospectWebsiteTask.js';
 
-async function run(searchTerm: string, config: Config) {
+export async function run(searchTerm: string, config: Config) {
     addLog("launching browser");
 
     const browser = await puppeteer.launch({headless: config.settings.headless});
-    
+
     const prospects = await runMapTask(browser, searchTerm, config);
 
     const prospectsFinal = await runProspectWebsiteTask(browser, prospects, config);

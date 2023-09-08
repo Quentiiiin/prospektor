@@ -1,5 +1,5 @@
 import {JSHandle, Page} from "puppeteer";
-import config from "../../config.js";
+import { Config } from "../../config.js";
 import {queryByText, scrollDown} from "../helper.js";
 import addLog from "../logger.js";
 
@@ -9,7 +9,7 @@ import addLog from "../logger.js";
  * @param page the page on of the result list
  * @returns the handle of the list
  */
-async function scrollResultList(page: Page) {
+async function scrollResultList(page: Page, config: Config) {
     addLog(`scrolling result list - running`);
     const resultListSelector = `*[aria-label^="${
         config.text.resultPanelTitle
@@ -17,7 +17,7 @@ async function scrollResultList(page: Page) {
     const resultList = await page.waitForSelector(resultListSelector);
 
     // scroll down the result list
-    let hasReachedEnd = true; // <-- if set to true doesnt scroll down, useful for testing
+    let hasReachedEnd = false; // <-- if set to true doesnt scroll down, useful for testing
 
     while (! hasReachedEnd) {
         scrollDown(page, resultList, 2000);

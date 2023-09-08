@@ -1,12 +1,11 @@
 import {ElementHandle, Page} from "puppeteer";
 import {ProspectInfo} from "../types.js";
 import {click, getPropValue} from "../helper.js";
-import config from "../../config.js";
+import  { Config } from "../../config.js";
 import addLog from "../logger.js";
-import { Stat, addStat } from "../stats.js";
 
 
-async function scrapeResults(page: Page, resultHandles: ElementHandle<Element>[]): Promise<ProspectInfo[]> {
+async function scrapeResults(page: Page, resultHandles: ElementHandle<Element>[], config: Config): Promise<ProspectInfo[]> {
     addLog(`scraping results - running`);
     const prospects: ProspectInfo[] = [];
 

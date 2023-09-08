@@ -1,5 +1,5 @@
 import {ElementHandle} from "puppeteer";
-import config from "../../config.js";
+import { Config } from "../../config.js";
 import {isEven} from "../helper.js";
 import addLog from "../logger.js";
 
@@ -8,7 +8,7 @@ import addLog from "../logger.js";
  * @param resultList the result list handle recieved from scrollResultList()
  * @returns the filtered array of handles to results
  */
-async function getResultHandles(resultList: ElementHandle<Element>): Promise<ElementHandle<Element>[]> {
+async function getResultHandles(resultList: ElementHandle<Element>, config: Config): Promise<ElementHandle<Element>[]> {
     const resultListSelector = `*[aria-label^="${
         config.text.resultPanelTitle
     }"]`;

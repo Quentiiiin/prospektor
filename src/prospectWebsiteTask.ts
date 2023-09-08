@@ -1,10 +1,9 @@
 import {Browser} from "puppeteer";
 import {ProspectInfo} from "./lib/types.js";
 import scrapeProspectWebsite from "./lib/prospectWebsiteTask/scrapeProspectWebsite.js";
-import config from "./config.js";
-import { Stat, addStat } from "./lib/stats.js";
+import  { Config } from "./config.js";
 
-async function runProspectWebsiteTask(browser : Browser, prospects : ProspectInfo[]): Promise < ProspectInfo[] > {
+async function runProspectWebsiteTask(browser : Browser, prospects : ProspectInfo[], config: Config): Promise < ProspectInfo[] > {
 
     let prospectsUpdated: ProspectInfo[] = [];
 
@@ -27,8 +26,7 @@ async function runProspectWebsiteTask(browser : Browser, prospects : ProspectInf
     for (let i = 0; i < prospects.length; i++) {
         if (prospects[i].website && prospects[i].website != "") {
             const prospect = prospects[i];
-            prospectsUpdated.push(await scrapeProspectWebsite(browser, prospect));
-            addStat(Stat.PROSPECTS);
+            prospectsUpdated.push(await scrapeProspectWebsite(browser, prospect, config));
         }
     }
 

@@ -1,6 +1,6 @@
 import {Browser, ElementHandle, Page, Target} from "puppeteer";
 import registerRequestIntercepter from "../trafficInterception.js";
-import config from "../../config.js";
+import { Config } from "../../config.js";
 import {scrapeEmails} from "./scrapeEmails.js";
 import {findContactLinks} from "./findContactLinks.js";
 import {click, mostCommonString} from "../helper.js";
@@ -8,7 +8,7 @@ import addLog from "../logger.js";
 import {ProspectInfo} from "../types.js";
 
 
-async function scrapeProspectContactPage(browser: Browser, parentPage: Page, link: ElementHandle<Element>): Promise<string[]> {
+async function scrapeProspectContactPage(browser: Browser, parentPage: Page, link: ElementHandle<Element>, config: Config): Promise<string[]> {
 
     const newTabPromise = new Promise<Target>((resolve) => browser.once('targetcreated', resolve));
 

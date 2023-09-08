@@ -1,4 +1,3 @@
-import { link } from "fs";
 import { ElementHandle, Page } from "puppeteer";
 
 

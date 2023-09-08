@@ -1,7 +1,7 @@
 import { Page } from "puppeteer";
-import config from "../../config.js";
+import  { Config } from "../../config.js";
 
-async function rejectCookies(page : Page) {
+async function rejectCookies(page : Page, config: Config) {
   if( (await page.title()).includes(config.text.cookiePageTitle)){
     const rejectButton = await page.$(`[aria-label="${config.text.rejectCookiesButton}"]`);
     if(rejectButton != null){

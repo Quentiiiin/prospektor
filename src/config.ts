@@ -1,5 +1,5 @@
 
-type Config = {
+export type Config = {
   text: {
     rejectCookiesButton: string,
     resultPanelTitle: string,

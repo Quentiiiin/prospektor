@@ -1,6 +1,6 @@
 import {Browser, ElementHandle} from "puppeteer";
 import registerRequestIntercepter from "../trafficInterception.js";
-import config from "../../config.js";
+import  { Config } from "../../config.js";
 import {scrapeEmails} from "./scrapeEmails.js";
 import {findContactLinks} from "./findContactLinks.js";
 import {click, mostCommonString} from "../helper.js";
@@ -10,14 +10,14 @@ import scrapeProspectContactPage from "./scrapeProspectContactPage.js";
 import {link} from "fs";
 
 
-async function scrapeProspectWebsite(browser: Browser, prospect: ProspectInfo): Promise<ProspectInfo> {
+async function scrapeProspectWebsite(browser: Browser, prospect: ProspectInfo, config: Config): Promise<ProspectInfo> {
     const url = prospect.website;
 
     addLog(`scraping prospect site: ${url}`);
 
     const page = await browser.newPage();
 
-    await registerRequestIntercepter(page);
+    await registerRequestIntercepter(page, config);
 
     await page.setJavaScriptEnabled(false);
 
@@ -39,7 +39,7 @@ async function scrapeProspectWebsite(browser: Browser, prospect: ProspectInfo): 
         for (let i = 0; i < contactLinks.length; i++) {
 
             await Promise.race([
-                scrapeProspectContactPage(browser, page, contactLinks[i]),
+                scrapeProspectContactPage(browser, page, contactLinks[i],config),
                 new Promise(
                     (resolve, reject) => { // Reject after 5 seconds
                         setTimeout(() => reject(new Error("Request timed out")), 5000);

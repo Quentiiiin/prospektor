@@ -1,6 +1,6 @@
 import { Browser } from 'puppeteer';
 import { Config } from '../../config.js';
-import { mostCommonString } from '../helper.js';
+import { mostCommonString, removeDuplicates } from '../helper.js';
 import addLog from '../logger.js';
 import registerRequestIntercepter from '../trafficInterception.js';
 import { ProspectInfo } from '../types.js';
@@ -39,7 +39,9 @@ async function scrapeProspectWebsite(
 
   let emails = await scrapeEmails(page);
 
-  const contactLinks = await findContactLinks(page);
+  const contactLinksDoubles = await findContactLinks(page);
+  const contactLinks = removeDuplicates(contactLinksDoubles);
+
   if (contactLinks) {
     for (let i = 0; i < contactLinks.length; i++) {
       const cMails = await scrapeProspectContactPage(

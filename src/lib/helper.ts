@@ -84,3 +84,14 @@ export function mostCommonString(strings: string[]): string | undefined {
 
   return mostCommon;
 }
+
+export function removeDuplicates(arr: string[]): string[] {
+  // Use a Set to store unique elements
+  const uniqueSet = new Set(arr);
+
+  // Convert the Set back to an array
+  const uniqueArray = Array.from(uniqueSet);
+
+  return uniqueArray;
+}
+

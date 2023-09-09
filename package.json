@@ -16,6 +16,7 @@
     "@inquirer/prompts": "^3.0.2",
     "axios": "^1.4.0",
     "csv-writer": "^1.6.0",
+    "prettier-plugin-organize-imports": "^3.2.3",
     "puppeteer": "^21.0.3"
   },
   "devDependencies": {

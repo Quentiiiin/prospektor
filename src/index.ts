@@ -1,8 +1,8 @@
 import puppeteer from 'puppeteer';
 import config, { Config } from './config.js';
 import addLog from './lib/logger.js';
-import runMapTask from './mapsTask.js';
 import save from './lib/saveToFile.js';
+import runMapTask from './mapsTask.js';
 import runProspectWebsiteTask from './prospectWebsiteTask.js';
 
 export async function run(searchTerm: string, config: Config) {

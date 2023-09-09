@@ -1,7 +1,7 @@
 import { Browser } from 'puppeteer';
-import { ProspectInfo } from './lib/types.js';
-import scrapeProspectWebsite from './lib/prospectWebsiteTask/scrapeProspectWebsite.js';
 import { Config } from './config.js';
+import scrapeProspectWebsite from './lib/prospectWebsiteTask/scrapeProspectWebsite.js';
+import { ProspectInfo } from './lib/types.js';
 
 async function runProspectWebsiteTask(
   browser: Browser,

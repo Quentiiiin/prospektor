@@ -1,7 +1,7 @@
+import { createObjectCsvWriter } from 'csv-writer';
 import { Config } from '../config.js';
 import addLog from './logger.js';
 import { ProspectInfo } from './types.js';
-import { createObjectCsvWriter } from 'csv-writer';
 
 /**
  * Saves the prospects to file under the specified file location in the config

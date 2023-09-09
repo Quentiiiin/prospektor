@@ -1,11 +1,8 @@
-import { Browser, ElementHandle, Page, Target } from 'puppeteer';
-import registerRequestIntercepter from '../trafficInterception.js';
+import { Browser } from 'puppeteer';
 import { Config } from '../../config.js';
-import { scrapeEmails } from './scrapeEmails.js';
-import { findContactLinks } from './findContactLinks.js';
-import { click, mostCommonString } from '../helper.js';
 import addLog from '../logger.js';
-import { ProspectInfo } from '../types.js';
+import registerRequestIntercepter from '../trafficInterception.js';
+import { scrapeEmails } from './scrapeEmails.js';
 
 async function scrapeProspectContactPage(
   browser: Browser,

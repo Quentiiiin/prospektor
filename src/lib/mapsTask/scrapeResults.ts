@@ -1,8 +1,8 @@
 import { ElementHandle, Page } from 'puppeteer';
-import { ProspectInfo } from '../types.js';
-import { click, getPropValue } from '../helper.js';
 import { Config } from '../../config.js';
+import { click, getPropValue } from '../helper.js';
 import addLog from '../logger.js';
+import { ProspectInfo } from '../types.js';
 
 async function scrapeResults(
   page: Page,

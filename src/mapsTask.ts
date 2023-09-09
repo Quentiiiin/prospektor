@@ -1,13 +1,13 @@
 import { Browser } from 'puppeteer';
-import { ProspectInfo } from './lib/types.js';
-import registerRequestIntercepter from './lib/trafficInterception.js';
-import { createUrl } from './lib/helper.js';
 import { Config } from './config.js';
-import rejectCookies from './lib/mapsTask/rejectCookies.js';
-import scrollResultList from './lib/mapsTask/scrollResultList.js';
-import getResultHandles from './lib/mapsTask/getResultHandles.js';
-import scrapeResults from './lib/mapsTask/scrapeResults.js';
+import { createUrl } from './lib/helper.js';
 import addLog from './lib/logger.js';
+import getResultHandles from './lib/mapsTask/getResultHandles.js';
+import rejectCookies from './lib/mapsTask/rejectCookies.js';
+import scrapeResults from './lib/mapsTask/scrapeResults.js';
+import scrollResultList from './lib/mapsTask/scrollResultList.js';
+import registerRequestIntercepter from './lib/trafficInterception.js';
+import { ProspectInfo } from './lib/types.js';
 
 async function runMapTask(
   browser: Browser,

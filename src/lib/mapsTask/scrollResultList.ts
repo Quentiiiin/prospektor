@@ -1,4 +1,4 @@
-import { JSHandle, Page } from 'puppeteer';
+import { Page } from 'puppeteer';
 import { Config } from '../../config.js';
 import { queryByText, scrollDown } from '../helper.js';
 import addLog from '../logger.js';

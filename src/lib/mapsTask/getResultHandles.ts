@@ -1,7 +1,6 @@
 import { ElementHandle } from 'puppeteer';
 import { Config } from '../../config.js';
 import { isEven } from '../helper.js';
-import addLog from '../logger.js';
 
 /**
  *

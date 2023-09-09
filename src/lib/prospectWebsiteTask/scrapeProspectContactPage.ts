@@ -1,6 +1,6 @@
 import {Browser, ElementHandle, Page, Target} from "puppeteer";
 import registerRequestIntercepter from "../trafficInterception.js";
-import { Config } from "../../config.js";
+import {Config} from "../../config.js";
 import {scrapeEmails} from "./scrapeEmails.js";
 import {findContactLinks} from "./findContactLinks.js";
 import {click, mostCommonString} from "../helper.js";
@@ -8,38 +8,30 @@ import addLog from "../logger.js";
 import {ProspectInfo} from "../types.js";
 
 
-async function scrapeProspectContactPage(browser: Browser, parentPage: Page, link: ElementHandle<Element>, config: Config): Promise<string[]> {
+async function scrapeProspectContactPage(browser: Browser, url: string, config: Config): Promise<string[]> {
 
-    const newTabPromise = new Promise<Target>((resolve) => browser.once('targetcreated', resolve));
+    addLog(`scraping prospect site: ${url}`);
 
+    const page = await browser.newPage();
 
-    const href: string = await parentPage.evaluate((link : any) => {
-        return link.getAttribute('href');
-    }, link);
+    await registerRequestIntercepter(page, config);
 
-    if(href.includes('mailto:') || href.includes('mailot:')){
-        return [];
+    await page.setJavaScriptEnabled(false);
+
+    try {
+        await page.goto(url, {
+            timeout: 10 * 1000
+        })
+    } catch (error : any) {
+        console.error(error);
+        addLog("page could not be loaded: " + url);
     }
 
-    await parentPage.evaluate((link : any) => {
-        link.target = '_blank';
-        link.click();
-    }, link);
+    await page.setViewport({width: config.settings.viewport.width, height: config.settings.viewport.height});
 
-    const newTabTarget: Target = await newTabPromise;
-    const newTabPage: Page |null = await newTabTarget.page();
+    let emails = await scrapeEmails(page);
 
-
-    if (newTabPage) {
-
-        await newTabPage.setViewport({width: config.settings.viewport.width, height: config.settings.viewport.height});
-
-        await newTabPage.waitForSelector('body');
-        let emails = await scrapeEmails(newTabPage);
-        await newTabPage.close();
-        return emails;
-
-    }
+    return emails;
 }
 
 export default scrapeProspectContactPage;

@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import  { Config } from './config.js';
+import  config, { Config } from './config.js';
 import addLog from './lib/logger.js';
 import runMapTask from './mapsTask.js';
 import save from './lib/saveToFile.js';
@@ -22,4 +22,4 @@ export async function run(searchTerm: string, config: Config) {
 }
 
 
-
+await run("dachdecker in münchen", config);

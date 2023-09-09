@@ -1,14 +1,12 @@
-import {Browser, ElementHandle} from "puppeteer";
+import {Browser} from "puppeteer";
 import registerRequestIntercepter from "../trafficInterception.js";
-import  { Config } from "../../config.js";
+import {Config} from "../../config.js";
 import {scrapeEmails} from "./scrapeEmails.js";
 import {findContactLinks} from "./findContactLinks.js";
-import {click, mostCommonString} from "../helper.js";
+import {mostCommonString} from "../helper.js";
 import addLog from "../logger.js";
 import {ProspectInfo} from "../types.js";
 import scrapeProspectContactPage from "./scrapeProspectContactPage.js";
-import {link} from "fs";
-
 
 async function scrapeProspectWebsite(browser: Browser, prospect: ProspectInfo, config: Config): Promise<ProspectInfo> {
     const url = prospect.website;
@@ -23,7 +21,7 @@ async function scrapeProspectWebsite(browser: Browser, prospect: ProspectInfo, c
 
     try {
         await page.goto(url, {
-            timeout: 60 * 1000
+            timeout: 10 * 1000
         })
     } catch (error : any) {
         console.error(error);
@@ -37,15 +35,8 @@ async function scrapeProspectWebsite(browser: Browser, prospect: ProspectInfo, c
     const contactLinks = await findContactLinks(page);
     if (contactLinks) {
         for (let i = 0; i < contactLinks.length; i++) {
-
-            await Promise.race([
-                scrapeProspectContactPage(browser, page, contactLinks[i],config),
-                new Promise(
-                    (resolve, reject) => { // Reject after 5 seconds
-                        setTimeout(() => reject(new Error("Request timed out")), 5000);
-                    }
-                ),
-            ]).then((cMails : string[]) => emails = emails.concat(cMails)).catch((error) => console.error(error));
+            const cMails = await scrapeProspectContactPage(browser, contactLinks[i], config);
+            emails = emails.concat(cMails);
         }
     }
     await page.close();

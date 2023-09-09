@@ -38,7 +38,7 @@ const config:Config = {
       cookiePageTitle : "Bevor Sie zu Google Maps",
   },
   settings: {
-    headless: "new",
+    headless: false,
     printLogsToTerminal: true,
     blockUnnecessaryTraffic: true,
     fileType: "csv",

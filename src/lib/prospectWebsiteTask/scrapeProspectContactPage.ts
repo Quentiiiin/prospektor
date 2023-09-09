@@ -35,7 +35,7 @@ async function scrapeProspectContactPage(
   });
 
   let emails = await scrapeEmails(page);
-
+  await page.close();
   return emails;
 }
 

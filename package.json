@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "npx tsx ./src/index.ts"
+    "dev": "npx tsx ./src/index.ts",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",

@@ -8,6 +8,7 @@ export type Config = {
     infoBoxPhone: string;
     infoBoxWebsite: string;
     cookiePageTitle: string;
+    advertisingLabel: string;
   };
   settings: {
     headless: boolean | 'new';
@@ -34,9 +35,10 @@ const config: Config = {
     infoBoxPhone: 'Telefon:',
     infoBoxWebsite: 'Website:',
     cookiePageTitle: 'Bevor Sie zu Google Maps',
+    advertisingLabel: 'Gesponsert',
   },
   settings: {
-    headless: "new",
+    headless: false,
     printLogsToTerminal: true,
     blockUnnecessaryTraffic: true,
     fileType: 'csv',

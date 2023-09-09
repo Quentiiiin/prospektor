@@ -8,6 +8,7 @@ import scrapeResults from './lib/mapsTask/scrapeResults.js';
 import scrollResultList from './lib/mapsTask/scrollResultList.js';
 import registerRequestIntercepter from './lib/trafficInterception.js';
 import { ProspectInfo } from './lib/types.js';
+import { removeAds } from './lib/mapsTask/removeAds.js';
 
 async function runMapTask(
   browser: Browser,
@@ -28,7 +29,8 @@ async function runMapTask(
   await rejectCookies(page, config);
 
   const resultList = await scrollResultList(page, config);
-  const resultHandles = await getResultHandles(resultList, config);
+  const resultHandlesWithAds = await getResultHandles(resultList, config);
+  const resultHandles = await removeAds(resultHandlesWithAds, config);
   const prospects = await scrapeResults(page, resultHandles, config);
 
   await page.close();

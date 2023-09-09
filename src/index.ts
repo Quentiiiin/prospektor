@@ -1,25 +1,29 @@
 import puppeteer from 'puppeteer';
-import  config, { Config } from './config.js';
+import config, { Config } from './config.js';
 import addLog from './lib/logger.js';
 import runMapTask from './mapsTask.js';
 import save from './lib/saveToFile.js';
 import runProspectWebsiteTask from './prospectWebsiteTask.js';
 
 export async function run(searchTerm: string, config: Config) {
-    addLog("launching browser");
+  addLog('launching browser');
 
-    const browser = await puppeteer.launch({headless: config.settings.headless});
+  const browser = await puppeteer.launch({
+    headless: config.settings.headless,
+  });
 
-    const prospects = await runMapTask(browser, searchTerm, config);
+  const prospects = await runMapTask(browser, searchTerm, config);
 
-    const prospectsFinal = await runProspectWebsiteTask(browser, prospects, config);
+  const prospectsFinal = await runProspectWebsiteTask(
+    browser,
+    prospects,
+    config,
+  );
 
-    save(prospectsFinal, searchTerm, config);
+  save(prospectsFinal, searchTerm, config);
 
-    await browser.close();
-    addLog("exiting");
-
+  await browser.close();
+  addLog('exiting');
 }
 
-
-await run("dachdecker in münchen", config);
+await run('dachdecker in münchen', config);

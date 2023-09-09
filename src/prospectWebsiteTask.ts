@@ -1,15 +1,18 @@
-import {Browser} from "puppeteer";
-import {ProspectInfo} from "./lib/types.js";
-import scrapeProspectWebsite from "./lib/prospectWebsiteTask/scrapeProspectWebsite.js";
-import  { Config } from "./config.js";
+import { Browser } from 'puppeteer';
+import { ProspectInfo } from './lib/types.js';
+import scrapeProspectWebsite from './lib/prospectWebsiteTask/scrapeProspectWebsite.js';
+import { Config } from './config.js';
 
-async function runProspectWebsiteTask(browser : Browser, prospects : ProspectInfo[], config: Config): Promise < ProspectInfo[] > {
+async function runProspectWebsiteTask(
+  browser: Browser,
+  prospects: ProspectInfo[],
+  config: Config,
+): Promise<ProspectInfo[]> {
+  let prospectsUpdated: ProspectInfo[] = [];
 
-    let prospectsUpdated: ProspectInfo[] = [];
-
-    //  | all prospect websites are scraped simultaneosly
-    // \/  makes things alot more complicated, might switch back to it later
-    /*const tasks = [];
+  //  | all prospect websites are scraped simultaneosly
+  // \/  makes things alot more complicated, might switch back to it later
+  /*const tasks = [];
 
     for (let i = 0; i < prospects.length; i++) {
         if (prospects[i].website && prospects[i].website != "") {
@@ -22,17 +25,17 @@ async function runProspectWebsiteTask(browser : Browser, prospects : ProspectInf
     });
     */
 
-    // synchronous aproach: every website after another, slower but safer
-    for (let i = 0; i < prospects.length; i++) {
-        if (prospects[i].website && prospects[i].website != "") {
-            const prospect = prospects[i];
-            prospectsUpdated.push(await scrapeProspectWebsite(browser, prospect, config));
-        }
+  // synchronous aproach: every website after another, slower but safer
+  for (let i = 0; i < prospects.length; i++) {
+    if (prospects[i].website && prospects[i].website != '') {
+      const prospect = prospects[i];
+      prospectsUpdated.push(
+        await scrapeProspectWebsite(browser, prospect, config),
+      );
     }
+  }
 
-
-
-    return prospectsUpdated;
+  return prospectsUpdated;
 }
 
 export default runProspectWebsiteTask;

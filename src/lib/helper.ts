@@ -40,7 +40,7 @@ export function isEven(number: number) {
 }
 
 export function createUrl(searchTerm: string) {
-  return `https://www.google.com/maps/search/${searchTerm.replace(' ', '+')}`;
+  return `https://www.google.com/maps/search/${searchTerm.replace(' ', '+')}?hl=en`;
 }
 
 export async function click(page: Page, handle: ElementHandle<any>) {
@@ -95,3 +95,4 @@ export function removeDuplicates(arr: string[]): string[] {
   return uniqueArray;
 }
 
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

@@ -1,6 +1,6 @@
 import { ElementHandle, Page } from 'puppeteer';
 import { Config } from '../../config.js';
-import { click, getPropValue } from '../helper.js';
+import { click, getPropValue, sleep } from '../helper.js';
 import addLog from '../logger.js';
 import { ProspectInfo } from '../types.js';
 
@@ -15,7 +15,7 @@ async function scrapeResults(
   for (let f = 0; f < resultHandles.length; f++) {
     const a = await (await resultHandles[f].$('div')).$('a');
     await click(page, a);
-    await page.waitForTimeout(config.settings.timeoutBetweenInfoBoxScrape);
+    await sleep(config.settings.timeoutBetweenInfoBoxScrape);
 
     const infoBox = await page.$(
       `*[aria-label^="${config.text.infoBoxTitle}"]`,

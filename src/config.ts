@@ -11,7 +11,7 @@ export type Config = {
     advertisingLabel: string;
   };
   settings: {
-    headless: boolean | 'new';
+    headless: boolean | 'shell';
     printLogsToTerminal: boolean;
     blockUnnecessaryTraffic: boolean;
     fileType: 'csv';
@@ -27,18 +27,18 @@ export type Config = {
 
 const config: Config = {
   text: {
-    rejectCookiesButton: 'Alle ablehnen',
-    resultPanelTitle: 'Ergebnisse für',
-    resultPanelEndReached: 'Das Ende der Liste ist erreicht.',
-    infoBoxTitle: 'Informationen zu',
-    infoBoxAddress: 'Adresse:',
-    infoBoxPhone: 'Telefon:',
+    rejectCookiesButton: 'Reject all',
+    resultPanelTitle: 'Results for',
+    resultPanelEndReached: `You've reached the end of the list.`,	
+    infoBoxTitle: 'About',
+    infoBoxAddress: 'Address:',
+    infoBoxPhone: 'Phone:',
     infoBoxWebsite: 'Website:',
-    cookiePageTitle: 'Bevor Sie zu Google Maps',
-    advertisingLabel: 'Gesponsert',
+    cookiePageTitle: 'Before you continue to Google Maps',
+    advertisingLabel: 'Sponsored',
   },
   settings: {
-    headless: false,
+    headless: true,
     printLogsToTerminal: true,
     blockUnnecessaryTraffic: true,
     fileType: 'csv',

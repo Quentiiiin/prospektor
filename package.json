@@ -16,6 +16,8 @@
     "@inquirer/prompts": "^3.0.2",
     "axios": "^1.4.0",
     "csv-writer": "^1.6.0",
+    "inquirer": "^12.3.0",
+    "picocolors": "^1.1.1",
     "prettier-plugin-organize-imports": "^3.2.3",
     "puppeteer": "^23.11.1"
   },

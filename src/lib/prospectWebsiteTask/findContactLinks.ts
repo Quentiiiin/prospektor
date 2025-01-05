@@ -1,7 +1,7 @@
 import { Page } from "puppeteer";
-import config from "../../config.js";
+import { Config } from "../../config.js";
 
-export async function findContactLinks(page: Page): Promise<string[] | null> {
+export async function findContactLinks(page: Page, config: Config): Promise<string[] | null> {
   const rawContactLinks: string[] = [];
   try {
     await page.waitForSelector("a"); // Wait for any links to appear
@@ -19,7 +19,9 @@ export async function findContactLinks(page: Page): Promise<string[] | null> {
       }
     }
   } catch (error) {
-    console.error(error);
+    if(config.settings.devmode) {
+      console.error(error);
+    }
     return null;
   }
   const absoluteURLs: string[] = rawContactLinks.map((linkHref) =>

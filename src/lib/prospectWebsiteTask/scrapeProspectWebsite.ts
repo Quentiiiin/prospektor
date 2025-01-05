@@ -28,7 +28,9 @@ async function scrapeProspectWebsite(
       timeout: 10 * 1000,
     });
   } catch (error: any) {
-    console.error(error);
+    if(config.settings.devmode) {
+      console.error(error);
+    }
     addLog('page could not be loaded: ' + url);
   }
 
@@ -39,7 +41,7 @@ async function scrapeProspectWebsite(
 
   let emails = await scrapeEmails(page);
 
-  const contactLinksDoubles = await findContactLinks(page);
+  const contactLinksDoubles = await findContactLinks(page, config);
   const contactLinks = removeDuplicates(contactLinksDoubles);
 
   if (contactLinks) {

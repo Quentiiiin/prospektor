@@ -1,29 +1,30 @@
-import puppeteer from 'puppeteer';
-import config, { Config } from './config.js';
-import addLog from './lib/logger.js';
-import save from './lib/saveToFile.js';
-import runMapTask from './mapsTask.js';
-import runProspectWebsiteTask from './prospectWebsiteTask.js';
+import inquirer from "inquirer";
+import { run } from "./run.js";
+import config from "./config.js";
 
-export async function run(searchTerm: string, config: Config) {
-  addLog('launching browser');
+const searchTerm = await inquirer.prompt({
+    name: "searchTerm",
+    type: "input",
+    message: "What do you want to search for?",
+    default: "restaurants in Berlin",
+});
 
-  const browser = await puppeteer.launch({
-    headless: config.settings.headless,
-  });
+const saveLocation: any = await inquirer.prompt({
+    name: "saveLocation",
+    type: "input",
+    message: "Where do you want to save the results?",
+    default: "./prospects/",
+});
 
-  const prospects = await runMapTask(browser, searchTerm, config);
+const visitWebsite: any = await inquirer.prompt({
+    name: "visitWebsite",
+    type: "confirm",
+    message: "Do you want to visit the website of each prospect?",
+    default: false,
+});
 
-  const prospectsFinal = await runProspectWebsiteTask(
-    browser,
-    prospects,
-    config,
-  );
+const userConfig = config;
+userConfig.settings.saveFolder = saveLocation.saveLocation;
+userConfig.settings.visitProspectWebsite = visitWebsite.visitWebsite;
 
-  save(prospectsFinal, searchTerm, config);
-
-  await browser.close();
-  addLog('exiting');
-}
-
-await run('dachdecker in münchen', config);
+await run(searchTerm.searchTerm, userConfig);

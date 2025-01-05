@@ -34,7 +34,7 @@ async function runMapTask(
   const prospects = await scrapeResults(page, resultHandles, config);
 
   await page.close();
-  addLog(`map task: ${searchTerm} - done`);
+  addLog(`map task: ${searchTerm} - done: found ${prospects.length} prospects`);
   return prospects;
 }
 

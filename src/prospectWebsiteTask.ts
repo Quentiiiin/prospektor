@@ -2,12 +2,14 @@ import { Browser } from 'puppeteer';
 import { Config } from './config.js';
 import scrapeProspectWebsite from './lib/prospectWebsiteTask/scrapeProspectWebsite.js';
 import { ProspectInfo } from './lib/types.js';
+import addLog from './lib/logger.js';
 
 async function runProspectWebsiteTask(
   browser: Browser,
   prospects: ProspectInfo[],
   config: Config,
 ): Promise<ProspectInfo[]> {
+  addLog(`prospect task - running`);
   let prospectsUpdated: ProspectInfo[] = [];
 
   //  | all prospect websites are scraped simultaneosly
@@ -35,6 +37,7 @@ async function runProspectWebsiteTask(
     }
   }
 
+  addLog(`prospect task - done`);
   return prospectsUpdated;
 }
 

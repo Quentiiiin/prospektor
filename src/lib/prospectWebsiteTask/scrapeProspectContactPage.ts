@@ -22,7 +22,9 @@ async function scrapeProspectContactPage(
       timeout: 10 * 1000,
     });
   } catch (error: any) {
-    console.error(error);
+    if(config.settings.devmode) {
+      console.error(error);
+    }
     addLog('page could not be loaded: ' + url);
   }
 

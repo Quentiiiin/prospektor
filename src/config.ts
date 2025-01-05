@@ -12,6 +12,7 @@ export type Config = {
     contactLinks: string[];
   };
   settings: {
+    devmode: boolean;
     headless: boolean | 'shell';
     printLogsToTerminal: boolean;
     blockUnnecessaryTraffic: boolean;
@@ -26,7 +27,7 @@ export type Config = {
   };
 };
 
-const config: Config = {
+const defaultConfig: Config = {
   text: {
     rejectCookiesButton: 'Reject all',
     resultPanelTitle: 'Results for',
@@ -40,6 +41,7 @@ const config: Config = {
     contactLinks: ['impressum', 'kontakt', 'contact'],
   },
   settings: {
+    devmode: false,
     headless: true,
     printLogsToTerminal: true,
     blockUnnecessaryTraffic: true,
@@ -54,4 +56,4 @@ const config: Config = {
   },
 };
 
-export default config;
+export default defaultConfig;

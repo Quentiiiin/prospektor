@@ -1,22 +1,21 @@
-import { Page } from 'puppeteer';
+import { Page } from "puppeteer";
+import config from "../../config.js";
 
 export async function findContactLinks(page: Page): Promise<string[] | null> {
   const rawContactLinks: string[] = [];
   try {
-    await page.waitForSelector('a'); // Wait for any links to appear
-    const links = await page.$$('a'); // Get all links on the page
+    await page.waitForSelector("a"); // Wait for any links to appear
+    const links = await page.$$("a"); // Get all links on the page
     for (let i = 0; i < links.length; i++) {
       const link = links[i];
-      const linkHref = await link.evaluate((el) => el.getAttribute('href'));
+      const linkHref = await link.evaluate((el) => el.getAttribute("href"));
       if (linkHref) {
         const l = linkHref.toLowerCase();
-        if (
-          l.includes('impressum') ||
-          l.includes('kontakt') ||
-          l.includes('contact')
-        ) {
-          rawContactLinks.push(linkHref);
-        }
+
+        const containsSubstring = config.text.contactLinks.some((substring) =>
+          l.includes(substring)
+        );
+        if (containsSubstring) rawContactLinks.push(linkHref);
       }
     }
   } catch (error) {
@@ -24,7 +23,7 @@ export async function findContactLinks(page: Page): Promise<string[] | null> {
     return null;
   }
   const absoluteURLs: string[] = rawContactLinks.map((linkHref) =>
-    convertToAbsoluteURL(page.url(), linkHref),
+    convertToAbsoluteURL(page.url(), linkHref)
   );
   const contactLinks: string[] = removeMailTo(absoluteURLs);
   if (contactLinks.length > 0) {
@@ -41,8 +40,8 @@ function convertToAbsoluteURL(
   const currentPage = new URL(currentPageURL);
 
   // Check if the linkHref is an absolute URL
-  const isAbsoluteURL =
-    linkHref.startsWith('http://') || linkHref.startsWith('https://');
+  const isAbsoluteURL = linkHref.startsWith("http://") ||
+    linkHref.startsWith("https://");
 
   if (isAbsoluteURL) {
     // If the linkHref is already an absolute URL, return it as is
@@ -55,7 +54,7 @@ function convertToAbsoluteURL(
 }
 
 function removeMailTo(links: string[]): string[] {
-  const wordsToRemove = ['mailto:', 'mailot:'];
+  const wordsToRemove = ["mailto:", "mailot:"];
   return links.filter(
     (item) => !wordsToRemove.some((word) => item.includes(word)),
   );

@@ -9,6 +9,7 @@ export type Config = {
     infoBoxWebsite: string;
     cookiePageTitle: string;
     advertisingLabel: string;
+    contactLinks: string[];
   };
   settings: {
     headless: boolean | 'shell';
@@ -36,6 +37,7 @@ const config: Config = {
     infoBoxWebsite: 'Website:',
     cookiePageTitle: 'Before you continue to Google Maps',
     advertisingLabel: 'Sponsored',
+    contactLinks: ['impressum', 'kontakt', 'contact'],
   },
   settings: {
     headless: true,
